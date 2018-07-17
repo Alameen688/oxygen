@@ -14,7 +14,7 @@ var _server2 = _interopRequireDefault(_server);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var should = _chai2.default.should();
+//const should = chai.should();
 
 _chai2.default.use(_chaiHttp2.default);
 

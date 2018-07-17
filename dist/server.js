@@ -28,20 +28,20 @@ app.use(_bodyParser2.default.json());
 app.use('/api/v1/entries', _index2.default.entries);
 
 app.use(function (req, res, next) {
-	var error = new Error('Not Found');
-	error.status = 404;
-	next(error);
+  var error = new Error('Not Found');
+  error.status = 404;
+  next(error);
 });
-app.use(function (error, req, res, next) {
-	return res.status(error.status || 404).json({
-		status: error,
-		message: error.message
-	});
+app.use(function (error, req, res) {
+  return res.status(error.status || 404).json({
+    status: error,
+    message: error.message
+  });
 });
 
 app.listen(port, function () {
-	console.log('Listening on port ' + port);
+  console.log('Listening on port ' + port);
 });
 
-//export app for testing
+// export app for testing
 module.exports = app;

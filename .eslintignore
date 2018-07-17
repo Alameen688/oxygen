@@ -1,3 +1,5 @@
 watcher_output/
 dist/
+test-dist/
+coverage/
 node_modules/

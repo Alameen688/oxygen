@@ -11,7 +11,7 @@ describe('/GET entries', () => {
   it('should Get all the entries', (done) => {
     chai.request(server)
       .get('/api/v1/entries')
-      .end((err, res) => {
+      .end(() => {
         done();
       });
   });

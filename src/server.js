@@ -22,11 +22,9 @@ app.use((req, res, next) => {
 // this func then returns the json error message
 app.use((error, req, res) => {
   res.status(error.status || 404);
-  res.json({
-	  status: 'error',
-	  message: error.message,
-  });
+  res.json({ status: 'error', message: error.message });
 });
+
 
 // listen only when not testing
 // this is to avoid Uncaught Error: listen EADDRINUSE :::3000

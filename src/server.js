@@ -23,12 +23,12 @@ app.use((error, req, res) => res.status(error.status || 404)
     message: error.message,
   }));
 
-//listen only when not testing
-//this is to avoid Uncaught Error: listen EADDRINUSE :::3000
-if(!module.parent) {
-	app.listen(port, () => {
-  		console.log(`Listening on port ${port}`);
-	});
+// listen only when not testing
+// this is to avoid Uncaught Error: listen EADDRINUSE :::3000
+if (!module.parent) {
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+  });
 }
 
 // export app for testing

@@ -39,8 +39,8 @@ app.use(function (error, req, res) {
   });
 });
 
-//listen only when not testing
-//this is to avoid Uncaught Error: listen EADDRINUSE :::3000
+// listen only when not testing
+// this is to avoid Uncaught Error: listen EADDRINUSE :::3000
 if (!module.parent) {
   app.listen(port, function () {
     console.log('Listening on port ' + port);

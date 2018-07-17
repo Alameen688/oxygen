@@ -14,9 +14,10 @@ var _server2 = _interopRequireDefault(_server);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//const should = chai.should();
+// const should = chai.should();
 
-_chai2.default.use(_chaiHttp2.default);
+_chai2.default.use(_chaiHttp2.default); /* eslint-env mocha */
+
 
 describe('/GET entries', function () {
   it('should Get all the entries', function (done) {

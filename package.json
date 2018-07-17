@@ -41,17 +41,5 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.2"
-  },
-  "standard": {
-    "globals": [
-      "describe",
-      "context",
-      "it",
-      "expect",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach"
-    ]
   }
 }

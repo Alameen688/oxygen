@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 describe('/GET entries', () => {
 	it('should Get all the entries', (done) => {
 		chai.request(server)
-			.get('/')
+			.get('/api/v1/entries')
 			.end((err, res) => {
 				res.body.status.should.have(200);
 				res.body.should.be.a('array');

@@ -20,7 +20,7 @@ _chai2.default.use(_chaiHttp2.default);
 
 describe('/GET entries', function () {
 	it('should Get all the entries', function (done) {
-		_chai2.default.request(_server2.default).get('/').end(function (err, res) {
+		_chai2.default.request(_server2.default).get('/api/v1/entries').end(function (err, res) {
 			res.body.status.should.have(200);
 			res.body.should.be.a('array');
 			res.body.length.should.be.eql(2);

@@ -26,14 +26,14 @@
   "homepage": "https://github.com/Alameen688/oxygen#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "express": "^4.16.3",
     "morgan": "^1.9.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
     "coveralls": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",

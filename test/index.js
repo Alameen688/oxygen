@@ -14,16 +14,17 @@ var _server2 = _interopRequireDefault(_server);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const should = chai.should();
+var should = _chai2.default.should();
 
 _chai2.default.use(_chaiHttp2.default);
 
 describe('/GET entries', function () {
   it('should Get all the entries', function (done) {
     _chai2.default.request(_server2.default).get('/api/v1/entries').end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('array');
-      res.body.length.should.be.eql(2);
+      res.body.should.be.a('object');
+      res.body.data.should.be.a('array');
+      res.body.data.length.should.be.eql(2);
+      done();
     });
   });
 });

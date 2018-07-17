@@ -4,6 +4,8 @@ node_js:
 install:
   - npm install
 script: npm run pretest
+after_success:
+  - npm run coveralls
 cache:
   directories:
     - "node_modules"

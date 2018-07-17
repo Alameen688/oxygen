@@ -43,7 +43,7 @@ app.use(function (error, req, res) {
 // this is to avoid Uncaught Error: listen EADDRINUSE :::3000
 if (!module.parent) {
   app.listen(port, function () {
-    console.log('Listening on port ' + port);
+    //console.log(`Listening on port ${port}`);
   });
 }
 

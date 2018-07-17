@@ -12,16 +12,21 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/entries', router.entries);
 
+//when there is no fitting route set error and run the next func
 app.use((req, res, next) => {
   const error = new Error('Not Found');
   error.status = 404;
   next(error);
 });
-app.use((error, req, res) => res.status(error.status || 404)
-  .json({
-    status: error,
-    message: error.message,
-  }));
+
+//this func then returns the json error message
+app.use((error, req, res, next) => {
+	res.status(error.status || 404);
+	res.json({
+		  status: 'error',
+		  message: error.message,
+	});
+});
 
 // listen only when not testing
 // this is to avoid Uncaught Error: listen EADDRINUSE :::3000

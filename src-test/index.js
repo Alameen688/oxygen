@@ -12,7 +12,6 @@ describe('/GET entries', () => {
     chai.request(server)
       .get('/api/v1/entries')
       .end((err, res) => {
-        
         done();
       });
   });

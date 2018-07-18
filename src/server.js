@@ -22,7 +22,10 @@ app.use((req, res, next) => {
 // this func then returns the json error message
 app.use((error, req, res) => {
   res.status(error.status || 404);
-  res.json({ status: 'error', message: error.message });
+  res.json({
+    status: 'error',
+    message: error.message || 'An error occured',
+  });
 });
 
 

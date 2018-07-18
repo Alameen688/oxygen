@@ -4,18 +4,54 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _entryController = require('../../controller/entryController');
+
+var _entryController2 = _interopRequireDefault(_entryController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
+var entry = new _entryController2.default();
 
+// get all entries
 router.get('/', function (req, res) {
-  return res.status(200).json({
-    status: 200,
-    data: [{
-      title: 'On a codeine diet'
-    }, {
-      title: "A day I'll never forget"
-    }]
+  var result = entry.getAllEntry();
+  res.status(200).json({
+    status: 'success',
+    data: result
+  });
+});
+
+// add a new entry
+router.post('/', function (req, res) {
+  var result = entry.addEntry(req.body.title, req.body.content);
+  res.status(200).json({
+    status: 'success',
+    data: result
+  });
+});
+
+// get entry by id
+router.get('/:id', function (req, res) {
+  // using obj destructring
+  var id = req.params.id;
+
+  var result = entry.findEntry(id);
+  res.status(200).json({
+    status: 'success',
+    data: result
+  });
+});
+
+// update entry
+router.put('/:id', function (req, res) {
+  var id = req.params.id;
+  var body = req.body;
+
+  var result = entry.updateEntry(id, body);
+  res.status(200).json({
+    status: 'success',
+    data: result
   });
 });
 

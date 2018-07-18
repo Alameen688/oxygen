@@ -10,17 +10,16 @@ import server from '../dist/server';
  * */
 const should = chai.should();
 
-
 chai.use(chaiHttp);
+
+const newEntry = {
+  title: 'Setting up testing',
+  content: `I've heard about testing before but never had a reason to take it so serious
+    until the Andela circle 34 bootcamp challenge came in.`,
+};
 
 describe('/POST entries', () => {
   it('should create a new entry', (done) => {
-    const newEntry = {
-      title: 'Setting up testing',
-      content: `I've heard about testing before but never had a reason to take it so serious
-        until the Andela circle 34 bootcamp challenge came in.`,
-    };
-
     chai.request(server)
       .post('/api/v1/entries')
       .send(newEntry)
@@ -48,8 +47,26 @@ describe('/GET entries', () => {
 
 describe('/GET/:id entries', () => {
   it('should get an entry by a given id', (done) => {
-    const newEntry = {
-      title: 'Setting up testing',
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send(newEntry)
+      .end((err, res) => {
+        chai.request(server)
+          .get(`/api/v1/entries/${res.body.data.id}`)
+          .end((error, response) => {
+            response.should.have.status(200);
+            response.body.should.be.a('object');
+            response.body.data.should.be.a('object');
+            done();
+          });
+      });
+  });
+});
+
+describe('/PUT/:id entries', () => {
+  it('should update an entry by a given id', (done) => {
+    const entryUpdate = {
+      title: 'New Setting up testing',
       content: `I've heard about testing before but never had a reason to take it so serious
         until the Andela circle 34 bootcamp challenge came in.`,
     };
@@ -59,7 +76,8 @@ describe('/GET/:id entries', () => {
       .send(newEntry)
       .end((err, res) => {
         chai.request(server)
-          .get(`/api/v1/entries/${res.body.data.id}`)
+          .put(`/api/v1/entries/${res.body.data.id}`)
+          .send(entryUpdate)
           .end((error, response) => {
             response.should.have.status(200);
             response.body.should.be.a('object');

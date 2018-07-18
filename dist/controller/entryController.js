@@ -52,16 +52,14 @@ var EntryController = function () {
     key: 'updateEntry',
     value: function updateEntry(id, body) {
       var entry = this._entryStore.findOne(id);
-      if (entry != null) {
+      if (entry !== null) {
         var keys = Object.keys(entry);
         var entryUpdate = {};
         keys.forEach(function (key) {
-          console.log('body: ' + body[key]);
-          console.log('entry: ' + entry[key]);
-          entryUpdate[key] = body[key] != undefined ? body[key] : entry[key];
+          entryUpdate[key] = body[key] !== undefined ? body[key] : entry[key];
         });
-        //update date
-        entryUpdate['updated_at'] = Date.now();
+        // update date
+        entryUpdate.updated_at = Date.now();
         this._entry = this._entryStore.update(id, entryUpdate);
 
         return this._entry;

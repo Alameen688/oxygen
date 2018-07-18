@@ -28,17 +28,15 @@ class EntryController {
   }
 
   updateEntry(id, body) {
-    let entry = this._entryStore.findOne(id);
-    if (entry != null) {
+    const entry = this._entryStore.findOne(id);
+    if (entry !== null) {
       const keys = Object.keys(entry);
       const entryUpdate = {};
       keys.forEach((key) => {
-        console.log('body: '+body[key]);
-        console.log('entry: '+entry[key]);
-        entryUpdate[key] = (body[key] != undefined) ? body[key] : entry[key];
+        entryUpdate[key] = (body[key] !== undefined) ? body[key] : entry[key];
       });
-      //update date
-      entryUpdate['updated_at'] = Date.now();
+      // update date
+      entryUpdate.updated_at = Date.now();
       this._entry = this._entryStore.update(id, entryUpdate);
 
       return this._entry;

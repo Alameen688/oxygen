@@ -1,4 +1,5 @@
 import express from 'express';
+import expressValidation from 'express-validation';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import router from './router/index';
@@ -21,11 +22,27 @@ app.use((req, res, next) => {
 
 // this func then returns the json error message
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    status: 'error',
-    message: error.message || 'An error occured',
-  });
+  if (error instanceof expressValidation.ValidationError) {
+    // extract error messages from validation error
+    const messages = error.errors.reduce((msg, obj) => {
+      // take the first error message of the property only
+      msg.push(obj.messages[0]);
+      return msg;
+    }, []);
+
+    res.status(error.status)
+      .json({
+        status: 'error',
+        message: error.statusText,
+        errors: messages,
+      });
+  } else {
+    res.status(error.status || 500);
+    res.json({
+      status: 'error',
+      message: error.message || 'An error occured',
+    });
+  }
   next();
 });
 

@@ -55,10 +55,19 @@ var EntryController = function () {
       var body = req.body;
 
       var result = this._entry.updateEntry(id, body);
-      res.status(200).json({
-        status: 'success',
-        data: result
-      });
+      if (result !== null) {
+        res.status(200).json({
+          status: 'success',
+          data: result
+        });
+      } else {
+        // has error property to match the pattern of validation error response
+        res.status(404).json({
+          status: 'error',
+          message: 'Oops entry not found',
+          errors: ["entry with id doesn't exist"]
+        });
+      }
     }
   }]);
 

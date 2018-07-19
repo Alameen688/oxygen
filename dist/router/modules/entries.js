@@ -4,9 +4,17 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _expressValidation = require('express-validation');
+
+var _expressValidation2 = _interopRequireDefault(_expressValidation);
+
 var _entryController = require('../../controller/entryController');
 
 var _entryController2 = _interopRequireDefault(_entryController);
+
+var _index = require('../../middleware/validation/index');
+
+var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19,17 +27,17 @@ router.get('/', function (req, res) {
 });
 
 // add a new entry
-router.post('/', function (req, res) {
+router.post('/', (0, _expressValidation2.default)(_index2.default.Entry.create), function (req, res) {
   entry.create(req, res);
 });
 
 // get entry by id
-router.get('/:id', function (req, res) {
+router.get('/:id', (0, _expressValidation2.default)(_index2.default.Entry.getById), function (req, res) {
   entry.getById(req, res);
 });
 
 // update entry
-router.put('/:id', function (req, res) {
+router.put('/:id', (0, _expressValidation2.default)(_index2.default.Entry.update), function (req, res) {
   entry.update(req, res);
 });
 

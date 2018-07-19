@@ -39,6 +39,7 @@ describe('/POST entries', () => {
       .post('/api/v1/entries')
       .send(newEntry)
       .end((err, res) => {
+        id = res.body.data.id;
         res.should.have.status(200);
         res.body.data.should.be.a('object');
         done();
@@ -91,17 +92,12 @@ describe('/GET entries', () => {
 describe('/GET/:id entries', () => {
   it('should get an entry by a given id', (done) => {
     chai.request(server)
-      .post('/api/v1/entries')
-      .send(newEntry)
-      .end((err, res) => {
-        chai.request(server)
-          .get(`/api/v1/entries/${res.body.data.id}`)
-          .end((error, response) => {
-            response.should.have.status(200);
-            response.body.should.be.a('object');
-            response.body.data.should.be.a('object');
-            done();
-          });
+      .get(`/api/v1/entries/${id}`)
+      .end((error, response) => {
+        response.should.have.status(200);
+        response.body.should.be.a('object');
+        response.body.data.should.be.a('object');
+        done();
       });
   });
 });
@@ -118,19 +114,13 @@ describe('/PUT/:id entries', () => {
     };
 
     chai.request(server)
-      .post('/api/v1/entries')
-      .send(newEntry)
-      .end((err, res) => {
-        id = res.body.data.id;
-        chai.request(server)
-          .put(`/api/v1/entries/${res.body.data.id}`)
-          .send(entryUpdate)
-          .end((error, response) => {
-            response.should.have.status(200);
-            response.body.should.be.a('object');
-            response.body.data.should.be.a('object');
-            done();
-          });
+      .put(`/api/v1/entries/${id}`)
+      .send(entryUpdate)
+      .end((error, response) => {
+        response.should.have.status(200);
+        response.body.should.be.a('object');
+        response.body.data.should.be.a('object');
+        done();
       });
   });
 

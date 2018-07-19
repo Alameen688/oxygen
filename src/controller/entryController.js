@@ -1,47 +1,49 @@
 /* eslint no-underscore-dangle: 0 */
-import Store from '../memory/store';
-import Schema from '../model/index';
-import util from '../helpers/utils';
+import EntryHandler from '../handler/entryHandler';
 
 class EntryController {
   constructor() {
-    this._entryStore = new Store.Entry();
-    this.entries = [];
-    this._entry = {};
+    this._entry = new EntryHandler();
   }
 
-  addEntry(title, content) {
-    const id = util.generateId();
-    const newEntry = new Schema.Entry(id, title, content, Date.now(), Date.now());
-    this._entry = this._entryStore.insert(newEntry.getEntry());
-    return this._entry;
-  }
-
-  getAllEntry() {
-    this._entries = this._entryStore.findAll();
-    return this._entries;
-  }
-
-  findEntry(id) {
-    this._entry = this._entryStore.findOne(id);
-    return this._entry;
-  }
-
-  updateEntry(id, body) {
-    const entry = this._entryStore.findOne(id);
-    if (entry !== null) {
-      const keys = Object.keys(entry);
-      const entryUpdate = {};
-      keys.forEach((key) => {
-        entryUpdate[key] = (body[key] !== undefined) ? body[key] : entry[key];
+  create(req, res) {
+    const result = this._entry.addEntry(req.body.title, req.body.content);
+    res.status(200)
+      .json({
+        status: 'success',
+        data: result,
       });
-      // update date
-      entryUpdate.updated_at = Date.now();
-      this._entry = this._entryStore.update(id, entryUpdate);
+  }
 
-      return this._entry;
-    }
-    return null;
+  getAll(req, res) {
+    const result = this._entry.getAllEntry();
+    res.status(200)
+      .json({
+        status: 'success',
+        data: result,
+      });
+  }
+
+  getById(req, res) {
+    // using obj destructring
+    const { id } = req.params;
+    const result = this._entry.findEntry(id);
+    res.status(200)
+      .json({
+        status: 'success',
+        data: result,
+      });
+  }
+
+  update(req, res) {
+    const { id } = req.params;
+    const { body } = req;
+    const result = this._entry.updateEntry(id, body);
+    res.status(200)
+      .json({
+        status: 'success',
+        data: result,
+      });
   }
 }
 

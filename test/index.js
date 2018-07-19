@@ -106,20 +106,33 @@ describe('/GET/:id entries', () => {
  * TEST THE PUT ENPOINT
  */
 describe('/PUT/:id entries', () => {
-  it('should update an entry by a given id', (done) => {
-    const entryUpdate = {
-      title: 'Setting up testing (update)',
-      content: `I've heard about testing before but never had a reason to take it so serious
-        until the Andela circle 34 bootcamp challenge came in.`,
-    };
+  const entryUpdate = {
+    title: 'Setting up testing (update)',
+    content: `I've heard about testing before but never had a reason to take it so serious
+      until the Andela circle 34 bootcamp challenge came in.`,
+  };
 
+  it('should update an entry by a given id', (done) => {
     chai.request(server)
       .put(`/api/v1/entries/${id}`)
       .send(entryUpdate)
       .end((error, response) => {
         response.should.have.status(200);
-        response.body.should.be.a('object');
-        response.body.data.should.be.a('object');
+        response.body.should.have.property('status');
+        done();
+      });
+  });
+
+  it('should return error when id is not found', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/054c0398f7c70b2e')
+      .send(entryUpdate)
+      .end((error, response) => {
+        response.should.have.status(404);
+        response.body.should.have.property('status');
+        response.body.status.should.equal('error');
+        response.body.should.have.property('errors');
+        response.body.errors.should.be.a('Array');
         done();
       });
   });

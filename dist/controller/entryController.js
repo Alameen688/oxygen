@@ -3,17 +3,9 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint no-underscore-dangle: 0 */
 
 
-var _store = require('../memory/store');
+var _entryHandler = require('../handler/entryHandler');
 
-var _store2 = _interopRequireDefault(_store);
-
-var _index = require('../model/index');
-
-var _index2 = _interopRequireDefault(_index);
-
-var _utils = require('../helpers/utils');
-
-var _utils2 = _interopRequireDefault(_utils);
+var _entryHandler2 = _interopRequireDefault(_entryHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23,48 +15,50 @@ var EntryController = function () {
   function EntryController() {
     _classCallCheck(this, EntryController);
 
-    this._entryStore = new _store2.default.Entry();
-    this.entries = [];
-    this._entry = {};
+    this._entry = new _entryHandler2.default();
   }
 
   _createClass(EntryController, [{
-    key: 'addEntry',
-    value: function addEntry(title, content) {
-      var id = _utils2.default.generateId();
-      var newEntry = new _index2.default.Entry(id, title, content, Date.now(), Date.now());
-      this._entry = this._entryStore.insert(newEntry.getEntry());
-      return this._entry;
+    key: 'create',
+    value: function create(req, res) {
+      var result = this._entry.addEntry(req.body.title, req.body.content);
+      res.status(200).json({
+        status: 'success',
+        data: result
+      });
     }
   }, {
-    key: 'getAllEntry',
-    value: function getAllEntry() {
-      this._entries = this._entryStore.findAll();
-      return this._entries;
+    key: 'getAll',
+    value: function getAll(req, res) {
+      var result = this._entry.getAllEntry();
+      res.status(200).json({
+        status: 'success',
+        data: result
+      });
     }
   }, {
-    key: 'findEntry',
-    value: function findEntry(id) {
-      this._entry = this._entryStore.findOne(id);
-      return this._entry;
-    }
-  }, {
-    key: 'updateEntry',
-    value: function updateEntry(id, body) {
-      var entry = this._entryStore.findOne(id);
-      if (entry !== null) {
-        var keys = Object.keys(entry);
-        var entryUpdate = {};
-        keys.forEach(function (key) {
-          entryUpdate[key] = body[key] !== undefined ? body[key] : entry[key];
-        });
-        // update date
-        entryUpdate.updated_at = Date.now();
-        this._entry = this._entryStore.update(id, entryUpdate);
+    key: 'getById',
+    value: function getById(req, res) {
+      // using obj destructring
+      var id = req.params.id;
 
-        return this._entry;
-      }
-      return null;
+      var result = this._entry.findEntry(id);
+      res.status(200).json({
+        status: 'success',
+        data: result
+      });
+    }
+  }, {
+    key: 'update',
+    value: function update(req, res) {
+      var id = req.params.id;
+      var body = req.body;
+
+      var result = this._entry.updateEntry(id, body);
+      res.status(200).json({
+        status: 'success',
+        data: result
+      });
     }
   }]);
 

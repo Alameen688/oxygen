@@ -18,6 +18,21 @@ const newEntry = {
     until the bootcamp challenge came in.`,
 };
 
+const invalidEntries = [
+  {
+    title: 'Only has title'
+  },
+  {
+    content: 'Only has content'
+  }
+];
+
+
+let id = "";
+
+/**
+ * TEST THE POST ENPOINT
+ */
 describe('/POST entries', () => {
   it('should create a new entry', (done) => {
     chai.request(server)
@@ -29,8 +44,30 @@ describe('/POST entries', () => {
         done();
       });
   });
+
+  it('should return an error when any required property is not passed', (done) => {
+    /** generate random number between 0 and 1, 1 inclusive**/
+    let i = Math.floor(Math.random() * 1);
+    //select an entry to use at random (from one without content, one without title)
+    let invalidEntry = invalidEntries[i];
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send(invalidEntry)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('status');
+        res.body.status.should.equal('error');
+        res.body.should.have.property('errors');
+        res.body.errors.should.be.a('array');
+        done();
+      })
+  });
+
 });
 
+/**
+ * TEST THE, GET ALL ENPOINT
+ */
 describe('/GET entries', () => {
   it('should get all the entries', (done) => {
     chai.request(server)
@@ -48,6 +85,9 @@ describe('/GET entries', () => {
   });
 });
 
+/**
+ * TEST THE, GET BY ID ENPOINT
+ */
 describe('/GET/:id entries', () => {
   it('should get an entry by a given id', (done) => {
     chai.request(server)
@@ -66,6 +106,9 @@ describe('/GET/:id entries', () => {
   });
 });
 
+/**
+ * TEST THE PUT ENPOINT
+ */
 describe('/PUT/:id entries', () => {
   it('should update an entry by a given id', (done) => {
     const entryUpdate = {
@@ -78,6 +121,7 @@ describe('/PUT/:id entries', () => {
       .post('/api/v1/entries')
       .send(newEntry)
       .end((err, res) => {
+        id = res.body.data.id;
         chai.request(server)
           .put(`/api/v1/entries/${res.body.data.id}`)
           .send(entryUpdate)
@@ -89,9 +133,27 @@ describe('/PUT/:id entries', () => {
           });
       });
   });
+
+  it('should return an error when any required property is not passed', (done) => {
+    let i = Math.floor(Math.random() * 1);
+    let invalidEntry = invalidEntries[i];
+    chai.request(server)
+      .put(`/api/v1/entries/${id}`)
+      .send(invalidEntry)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('status');
+        res.body.status.should.equal('error');
+        res.body.should.have.property('errors');
+        res.body.errors.should.be.a('array');
+        done();
+      })
+  });
 });
 
-
+/**
+ * TEST AN INVALID ENPOINT 
+ */
 describe('Invalid endpoint request', () => {
   it('should return a 404 error with an error message', (done) => {
     chai.request(server)

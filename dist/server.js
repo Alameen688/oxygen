@@ -4,6 +4,10 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _expressValidation = require('express-validation');
+
+var _expressValidation2 = _interopRequireDefault(_expressValidation);
+
 var _morgan = require('morgan');
 
 var _morgan2 = _interopRequireDefault(_morgan);
@@ -36,11 +40,26 @@ app.use(function (req, res, next) {
 
 // this func then returns the json error message
 app.use(function (error, req, res, next) {
-  res.status(error.status || 500);
-  res.json({
-    status: 'error',
-    message: error.message || 'An error occured'
-  });
+  if (error instanceof _expressValidation2.default.ValidationError) {
+    // extract error messages from validation error
+    var messages = error.errors.reduce(function (msg, obj) {
+      // take the first error message of the property only
+      msg.push(obj.messages[0]);
+      return msg;
+    }, []);
+
+    res.status(error.status).json({
+      status: 'error',
+      message: error.statusText,
+      errors: messages
+    });
+  } else {
+    res.status(error.status || 500);
+    res.json({
+      status: 'error',
+      message: error.message || 'An error occured'
+    });
+  }
   next();
 });
 

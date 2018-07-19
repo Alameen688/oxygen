@@ -35,12 +35,13 @@ app.use(function (req, res, next) {
 });
 
 // this func then returns the json error message
-app.use(function (error, req, res) {
-  res.status(error.status || 404);
+app.use(function (error, req, res, next) {
+  res.status(error.status || 500);
   res.json({
     status: 'error',
     message: error.message || 'An error occured'
   });
+  next();
 });
 
 // listen only when not testing

@@ -28,4 +28,10 @@ Entry.update = {
   },
 };
 
+Entry.delete = {
+  params: {
+    id: Joi.string().max(16).required(),
+  },
+};
+
 module.exports = Entry;

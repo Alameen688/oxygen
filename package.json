@@ -2,6 +2,9 @@
   "name": "oxygen",
   "version": "1.0.0",
   "description": "Server side app that provides mydiary ui client with data",
+  "engines": {
+    "node": "8.9.4"
+  },
   "main": "index.js",
   "scripts": {
     "test": "babel-node node_modules/mocha/bin/_mocha test/*.js",

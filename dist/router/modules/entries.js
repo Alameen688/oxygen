@@ -41,12 +41,9 @@ router.put('/:id', (0, _expressValidation2.default)(_index2.default.Entry.update
   entry.update(req, res);
 });
 
-<<<<<<< HEAD
 // delete entry
 router.delete('/:id', (0, _expressValidation2.default)(_index2.default.Entry.delete), function (req, res) {
   entry.delete(req, res);
 });
 
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 module.exports = router;

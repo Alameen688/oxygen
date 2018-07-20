@@ -36,15 +36,12 @@ var Entry = function () {
       this.entries[id] = entry;
       return this.entries[id];
     }
-<<<<<<< HEAD
   }, {
     key: "delete",
     value: function _delete(id) {
       delete this.entries[id];
       return this.entries[id];
     }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
   }]);
 
   return Entry;

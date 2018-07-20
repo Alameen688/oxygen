@@ -69,7 +69,6 @@ var EntryController = function () {
         });
       }
     }
-<<<<<<< HEAD
   }, {
     key: 'delete',
     value: function _delete(req, res) {
@@ -91,8 +90,6 @@ var EntryController = function () {
         });
       }
     }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
   }]);
 
   return EntryController;

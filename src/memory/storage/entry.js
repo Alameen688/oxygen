@@ -23,14 +23,11 @@ class Entry {
     this.entries[id] = entry;
     return this.entries[id];
   }
-<<<<<<< HEAD
 
   delete(id) {
     delete this.entries[id];
     return this.entries[id];
   }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 }
 
 module.exports = Entry;

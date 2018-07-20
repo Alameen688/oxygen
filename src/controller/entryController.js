@@ -57,7 +57,6 @@ class EntryController {
         });
     }
   }
-<<<<<<< HEAD
 
   delete(req, res) {
     const { id } = req.params;
@@ -81,8 +80,6 @@ class EntryController {
         });
     }
   }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 }
 
 module.exports = EntryController;

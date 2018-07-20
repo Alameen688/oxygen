@@ -43,7 +43,6 @@ class EntryHandler {
     }
     return null;
   }
-<<<<<<< HEAD
 
   deleteEntry(id) {
     const entry = this._entryStore.findOne(id);
@@ -54,8 +53,6 @@ class EntryHandler {
     }
     return null;
   }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 }
 
 module.exports = EntryHandler;

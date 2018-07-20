@@ -5,46 +5,45 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Entry = function () {
-  function Entry() {
+  function Entry(title, content, createdAt, updatedAt) {
     _classCallCheck(this, Entry);
 
-    this.entries = {};
+    this._title = title;
+    this._content = content;
+    this._createdAt = createdAt;
+    this._updatedAt = updatedAt;
   }
 
   _createClass(Entry, [{
-    key: "insert",
-    value: function insert(entry) {
-      this.entries[entry.id] = entry;
-      return this.entries[entry.id];
+    key: "getEntry",
+    value: function getEntry() {
+      return {
+        title: this._title,
+        content: this._content,
+        createdAt: this._createdAt,
+        updatedAt: this._updatedAt
+      };
     }
   }, {
-    key: "findAll",
-    value: function findAll() {
-      return Object.values(this.entries);
+    key: "title",
+    get: function get() {
+      return this._title;
     }
   }, {
-    key: "findOne",
-    value: function findOne(id) {
-      if (Object.prototype.hasOwnProperty.call(this.entries, id)) {
-        return this.entries[id];
-      }
-      return null;
+    key: "content",
+    get: function get() {
+      return this._content;
     }
   }, {
-    key: "update",
-    value: function update(id, entry) {
-      this.entries[id] = entry;
-      return this.entries[id];
+    key: "createdAt",
+    get: function get() {
+      return this._createdAt;
     }
-<<<<<<< HEAD
   }, {
-    key: "delete",
-    value: function _delete(id) {
-      delete this.entries[id];
-      return this.entries[id];
+    key: "updatedAt",
+    get: function get() {
+      return this._updatedAt;
     }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
   }]);
 
   return Entry;

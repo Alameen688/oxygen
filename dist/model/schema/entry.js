@@ -4,47 +4,54 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/* eslint no-underscore-dangle: 0 */
 var Entry = function () {
-  function Entry() {
+  function Entry(id, title, content, createdAt, updatedAt) {
     _classCallCheck(this, Entry);
 
-    this.entries = {};
+    this._id = id;
+    this._title = title;
+    this._content = content;
+    this._created_at = createdAt;
+    this._updated_at = updatedAt;
   }
 
   _createClass(Entry, [{
-    key: "insert",
-    value: function insert(entry) {
-      this.entries[entry.id] = entry;
-      return this.entries[entry.id];
+    key: "getEntry",
+    value: function getEntry() {
+      return {
+        id: this._id,
+        title: this._title,
+        content: this._content,
+        created_at: this._created_at,
+        updated_at: this._updated_at
+      };
     }
   }, {
-    key: "findAll",
-    value: function findAll() {
-      return Object.values(this.entries);
+    key: "id",
+    get: function get() {
+      return this._id;
     }
   }, {
-    key: "findOne",
-    value: function findOne(id) {
-      if (Object.prototype.hasOwnProperty.call(this.entries, id)) {
-        return this.entries[id];
-      }
-      return null;
+    key: "title",
+    get: function get() {
+      return this._title;
     }
   }, {
-    key: "update",
-    value: function update(id, entry) {
-      this.entries[id] = entry;
-      return this.entries[id];
+    key: "content",
+    get: function get() {
+      return this._content;
     }
-<<<<<<< HEAD
   }, {
-    key: "delete",
-    value: function _delete(id) {
-      delete this.entries[id];
-      return this.entries[id];
+    key: "createdAt",
+    get: function get() {
+      return this._created_at;
     }
-=======
->>>>>>> Revert "Revert "Merge all changes from Develop into Master""
+  }, {
+    key: "updatedAt",
+    get: function get() {
+      return this._updated_at;
+    }
   }]);
 
   return Entry;

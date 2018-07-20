@@ -28,10 +28,13 @@ Entry.update = {
   },
 };
 
+<<<<<<< HEAD
 Entry.delete = {
   params: {
     id: Joi.string().max(16).required(),
   },
 };
 
+=======
+>>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 module.exports = Entry;

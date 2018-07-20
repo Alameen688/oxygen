@@ -26,10 +26,13 @@ router.put('/:id', validate(Validation.Entry.update), (req, res) => {
   entry.update(req, res);
 });
 
+<<<<<<< HEAD
 // delete entry
 router.delete('/:id', validate(Validation.Entry.delete), (req, res) => {
   entry.delete(req, res);
 });
 
+=======
+>>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 
 module.exports = router;

@@ -66,6 +66,7 @@ var EntryHandler = function () {
       }
       return null;
     }
+<<<<<<< HEAD
   }, {
     key: 'deleteEntry',
     value: function deleteEntry(id) {
@@ -77,6 +78,8 @@ var EntryHandler = function () {
       }
       return null;
     }
+=======
+>>>>>>> Revert "Revert "Merge all changes from Develop into Master""
   }]);
 
   return EntryHandler;

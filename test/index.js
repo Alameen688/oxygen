@@ -155,6 +155,7 @@ describe('/PUT/:id entries', () => {
 });
 
 /**
+<<<<<<< HEAD
  * TEST THE DELETE ENPOINT
  */
 describe('/DELETE/:id entries', () => {
@@ -186,6 +187,8 @@ describe('/DELETE/:id entries', () => {
 
 
 /**
+=======
+>>>>>>> Revert "Revert "Merge all changes from Develop into Master""
  * TEST AN INVALID ENPOINT 
  */
 describe('Invalid endpoint request', () => {

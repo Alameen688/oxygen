@@ -32,12 +32,17 @@ app.use(_bodyParser2.default.json());
 app.all('/*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+<<<<<<< HEAD
   res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, X-Requested-With, X-Access-Token, X-Key, Authorization');
   if (req.method === 'OPTIONS') {
     res.status(200).end();
   } else {
     next();
   }
+=======
+  res.header('Access-Control-Allow-Headers', 'Content-type, Accept, X-Access-Token, X-Key');
+  next();
+>>>>>>> Revert "Revert "Merge all changes from Develop into Master""
 });
 
 app.use('/api/v1/entries', _index2.default.entries);

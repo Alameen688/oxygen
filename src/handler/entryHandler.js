@@ -43,6 +43,16 @@ class EntryHandler {
     }
     return null;
   }
+
+  deleteEntry(id) {
+    const entry = this._entryStore.findOne(id);
+    if (entry !== null) {
+      this._entry = this._entryStore.delete(id);
+
+      return this._entry;
+    }
+    return null;
+  }
 }
 
 module.exports = EntryHandler;

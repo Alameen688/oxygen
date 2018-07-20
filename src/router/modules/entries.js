@@ -26,5 +26,10 @@ router.put('/:id', validate(Validation.Entry.update), (req, res) => {
   entry.update(req, res);
 });
 
+// delete entry
+router.delete('/:id', validate(Validation.Entry.delete), (req, res) => {
+  entry.delete(req, res);
+});
+
 
 module.exports = router;
